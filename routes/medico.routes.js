@@ -1,12 +1,15 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { getMedicos, createMedico, updateMedico, deleteMedico } = require('../controllers/medico.controller');
+const { getMedicos, createMedico, updateMedico, deleteMedico, getMedicoById } = require('../controllers/medico.controller');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 const router = Router();
 
-router.get('/', getMedicos);
+router.get('/', validarJWT, getMedicos);
+
+router.get('/:id', validarJWT, getMedicoById);
+
 router.post('/',
     [
         validarJWT,
