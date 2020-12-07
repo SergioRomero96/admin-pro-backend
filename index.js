@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { dbConnection } = require("./database/config");
+const path = require('path');
 
 require("dotenv").config();
 
@@ -26,6 +27,11 @@ app.use('/api/hospitales', require('./routes/hospital.routes'));
 app.use('/api/medicos', require('./routes/medico.routes'));
 app.use('/api/todo', require('./routes/busqueda.routes'));
 app.use('/api/upload', require('./routes/uploads.routes'));
+
+// Lo último
+app.get('*', (req, res) => {
+	res.sendFile(path.resolve(__dirname, 'public/index.html'));
+});
 
 
 app.listen(process.env.PORT, () =>
